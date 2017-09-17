@@ -6,7 +6,7 @@
   <title>Speech to LaTeX</title>
   <meta name="author" content="Lily Chen">
   <meta name="description" content="Translate speech to LaTeX; for HackMIT 2k17">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script>
     $.ajaxSetup({
@@ -31,9 +31,9 @@
           <p>Translate speech to LaTeX!</p>
           <button id="startBtn" class="btn btn-lg btn-success" role="button">Speak</button>
         </div>
-        <div id=hypothesisDiv class="control-label" disabled="disabled"></div>
+        <!-- <div id=hypothesisDiv class="form-control" disabled="disabled"></div> -->
         <label>English</label>
-        <textarea class="control-label" id="input" onkeyup='update()' rows='1' , cols='100'></textarea>
+        <textarea id="hypothesisDiv" class="form-control" onkeyup='update()' rows='1' , cols='100'></textarea>
         <label>LaTeX:</label>
         <script>
           str = str.replace(/\s+/g, '');
@@ -42,10 +42,14 @@
         </div>
         <script>
           update = function() {
-            callAPI(document.getElementById('input').value)
+            callAPI(document.getElementById('hypothesisDiv').value)
+            var latexInput = document.getElementById('LaTeX').innerHTML;
+            var latexCondensed = latexInput.replace(/\s+/g, '');
+            var latexSrc = "https://latex.codecogs.com/gif.latex?" + latexCondensed;
+            document.getElementById('latex result').src = latexSrc;
+            document.getElementById('latex result').title = latexInput;
           }
           callAPI = function(string) {
-            var x = ""
             obj = {
               apikey: PARSEGON_KEY,
               plaintext: string
@@ -63,8 +67,8 @@
           };
         </script>
         <div class="results">
-        <a href="https://www.codecogs.com/eqnedit.php?latex={\int_{0}^{10}&space;x^{3}}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?{\int_{0}^{10}&space;x^{3}}" title="{\int_{0}^{10} x^{3}}" /></a>
-    </div>
+          <img id="latex result" src="">
+        </div>
       </center>
     </div>
     <div class="col-sm-2"></div>
@@ -72,8 +76,8 @@
 
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-  hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script> -->
-  <script type='text/javascript' src='js/config.js'></script>
-  <script type='text/javascript' src='js/script.js'></script>
+  <!-- <script type='text/javascript' src='js/config.js'></script>
+  <script type='text/javascript' src='js/script.js'></script> -->
   <!-- Include all compiled plugins (below), or include individual files as needed -->
   <table width="100%" style="display: none;">
     <tr>
@@ -90,7 +94,7 @@
       </td>
     </tr>
     <tr>
-      <td align="right">Laguage:</td>
+      <td align="right">Language:</td>
       <td align="left">
         <select id="languageOptions">
           <option value="zh-CN">Chinese - CN</option>
@@ -155,7 +159,7 @@
       });
     }
 
-    // Setup the recongizer
+    // Setup the recognizer
     function RecognizerSetup(SDK, recognitionMode, language, format, subscriptionKey) {
       var recognizerConfig = new SDK.RecognizerConfig(
         new SDK.SpeechConfig(
@@ -212,6 +216,7 @@
               OnComplete();
               UpdateStatus("Idle");
               console.log(JSON.stringify(event)); // Debug information
+              update();
               break;
           }
         })
