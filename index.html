@@ -31,8 +31,8 @@
           <p>Translate speech to LaTeX!</p>
           <button id="startBtn" class="btn btn-lg btn-success" role="button">Speak</button>
         </div>
-        <div id=hypothesisDiv class="control-label" disabled="disabled"></div>
         <label>English</label>
+        <div id=hypothesisDiv class="control-label" disabled="disabled"></div>
         <textarea class="control-label" id="input" onkeyup='update()' rows='1' , cols='100'></textarea>
         <label>LaTeX:</label>
         <script>
@@ -45,7 +45,6 @@
             callAPI(document.getElementById('input').value)
           }
           callAPI = function(string) {
-            var x = ""
             obj = {
               apikey: PARSEGON_KEY,
               plaintext: string
@@ -90,7 +89,7 @@
       </td>
     </tr>
     <tr>
-      <td align="right">Laguage:</td>
+      <td align="right">Language:</td>
       <td align="left">
         <select id="languageOptions">
           <option value="zh-CN">Chinese - CN</option>
@@ -155,7 +154,7 @@
       });
     }
 
-    // Setup the recongizer
+    // Setup the recognizer
     function RecognizerSetup(SDK, recognitionMode, language, format, subscriptionKey) {
       var recognizerConfig = new SDK.RecognizerConfig(
         new SDK.SpeechConfig(
