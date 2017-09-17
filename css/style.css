@@ -10,9 +10,15 @@ body {
 }
 
 .container {
-    display: hidden;
     position: relative;
     top: 15%;
     margin-left: auto;
     margin-right: auto;
+}
+
+.results {
+  /*TODO*/
+}
+textarea {
+   resize: vertical;
 }
