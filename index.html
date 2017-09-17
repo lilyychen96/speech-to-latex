@@ -6,10 +6,11 @@
   <title>Speech to LaTeX</title>
   <meta name="author" content="Lily Chen">
   <meta name="description" content="Translate speech to LaTeX; for HackMIT 2k17">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
   <link rel="stylesheet" href="css/style.css" />
+  <script>var PARSEGON_KEY = "HackToTheFuture2017"</script>
 
 </head>
 
@@ -21,7 +22,7 @@
         <div class="jumbotron">
           <h1>Speech to LaTeX</h1>
           <p>Translate speech to LaTeX!</p>
-          <p><a id="startBtn" class="btn btn-lg btn-success" href="#" role="button">Speak</a></p>
+          <button id="startBtn" class="btn btn-lg btn-success" role="button">Speak</button>
         </div>
         <div id=hypothesisDiv class="control-label" disabled="disabled"></div>
       </center>
