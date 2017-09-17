@@ -32,46 +32,43 @@
           <button id="startBtn" class="btn btn-lg btn-success" role="button">Speak</button>
         </div>
         <div class="result-menu">
-        <!-- <div id=hypothesisDiv class="form-control" disabled="disabled"></div> -->
-        <label>English</label>
-        <textarea id="hypothesisDiv" class="form-control" onkeyup='update()' rows='1' , cols='100'></textarea>
-        <label>LaTeX:</label>
-        <script>
-          str = str.replace(/\s+/g, '');
-        </script>
-        <div id="LaTeX" style="border:solid;">
-        </div>
-        <script>
-          update = function() {
-            callAPI(document.getElementById('hypothesisDiv').value)
-            var latexInput = document.getElementById('LaTeX').innerHTML;
-            var latexCondensed = latexInput.replace(/\s+/g, '');
-            var latexSrc = "https://latex.codecogs.com/gif.latex?" + latexCondensed;
-            document.getElementById('latex result').src = latexSrc;
-            document.getElementById('latex result').title = latexInput;
-          }
-          callAPI = function(string) {
-            obj = {
-              apikey: PARSEGON_KEY,
-              plaintext: string
+          <label>English</label>
+          <textarea id="hypothesisDiv" class="form-control" onkeyup='update()' rows='1' , cols='100'></textarea>
+          <br>
+          <label>LaTeX:</label>
+          <div id="LaTeX" style="padding-bottom: 20px">
+          </div>
+          <script>
+            update = function() {
+              callAPI(document.getElementById('hypothesisDiv').value)
+              var latexInput = document.getElementById('LaTeX').innerHTML;
+              var latexCondensed = latexInput.replace(/\s+/g, '');
+              var latexSrc = "https://latex.codecogs.com/gif.latex?" + latexCondensed;
+              document.getElementById('latex result').src = latexSrc;
+              document.getElementById('latex result').title = latexInput;
             }
-            $.ajax({
-              url: "http://api.parsegon.com/translate",
-              type: "POST",
-              async: false,
-              'Content-Type': 'application/json',
-              data: obj,
-              success: function(results) {
-                document.getElementById('LaTeX').innerHTML = results['latex']
+            callAPI = function(string) {
+              obj = {
+                apikey: PARSEGON_KEY,
+                plaintext: string
               }
-            });
-          };
-        </script>
-        <div class="results">
-          <img id="latex result" src="">
-        </div>
+              $.ajax({
+                url: "http://api.parsegon.com/translate",
+                type: "POST",
+                async: false,
+                'Content-Type': 'application/json',
+                data: obj,
+                success: function(results) {
+                  document.getElementById('LaTeX').innerHTML = results['latex']
+                }
+              });
+            };
+          </script>
+          <div class="results">
+            <img id="latex result" src="">
+          </div>
       </center>
-    </div>
+      </div>
     </div>
     <div class="col-sm-2"></div>
   </div>
